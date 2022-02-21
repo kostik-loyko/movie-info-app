@@ -1,0 +1,182 @@
+@font-face {
+   font-family: 'Roboto', sans-serif;
+   src: url("fonts/Roboto-Regular.ttf");
+   font-weight: 400;
+}
+@font-face {
+   font-family: 'Roboto', sans-serif;
+   src: url("fonts/Roboto-Medium.ttf");
+   font-weight: 500;
+}
+@font-face {
+   font-family: 'Roboto', sans-serif;
+   src: url("fonts/Roboto-Bold.ttf");
+   font-weight: 700;
+}
+
+*, *::before, *::after {
+   box-sizing: border-box;
+}
+
+body {
+   font-family: 'Roboto', sans-serif;
+   background-color: #fff;
+   font-size: 18px;
+   line-height: 1.5;
+   background-color: #3b3838;
+   color: #e4dede;
+   margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+   max-width: 1240px;
+   margin: 0 auto;
+   padding: 20px;
+}
+
+.header {
+   background-color: black;
+   position: fixed;
+   width: 100%;
+   z-index: 2;
+   &__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 90px;
+   }
+
+   &__title {
+   }
+
+   &__form {
+   }
+}
+
+.form {
+   display: flex;
+   justify-content: end;
+   width: 40%;
+   &__input {
+      font-size: inherit;
+      width: 100%;
+      padding: 8px;
+      border: 2ps solid black;
+      border-radius: 5px;
+      outline: none;
+   }
+}
+
+.main {
+   padding-top: 100px;
+   &__container {
+   }
+}
+
+.cards {
+   display: flex;
+   justify-content: space-around;
+   gap: 20px;
+   flex-wrap: wrap;
+   &__item {
+      width: 280px;
+      background-color: #837979;
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 5px 3px 10px black;
+      align-self: flex-start;
+   }
+
+   &__image {
+      width: 100%;
+   }
+
+   &__block {
+      display: flex;
+   }
+
+   &__title {
+      margin-left: 10px;
+   }
+
+   &__discription {
+      height: 1px;
+      padding: 0 10px;
+      overflow: hidden;
+      transition: all 0.3s ease-out;
+      &::-webkit-scrollbar {
+         width: 0;
+      }
+      &.active {
+         height: 200px;
+         overflow: scroll;
+      }
+   }
+
+   &__mark {
+      &--green {
+         border: 3px solid green;
+         border-radius: 50%;
+         width: 37px;
+         height: 37px;
+         text-align: center;
+         line-height: 1.8;
+         background-color: #837979;
+      }
+      &--orange {
+         border: 3px solid orange;
+         border-radius: 50%;
+         width: 37px;
+         height: 37px;
+         text-align: center;
+         line-height: 1.8;
+         background-color: #837979;
+      }
+      &--red {
+         border: 3px solid red;
+         border-radius: 50%;
+         width: 37px;
+         height: 37px;
+         text-align: center;
+         line-height: 1.8;
+         background-color: #837979;
+      }
+   }
+}
+
+.footer {
+
+   &__container {
+   }
+
+   &__copyright {
+   }
+
+   &__rsschool {
+   }
+}
+
+.copyright {
+
+   &__year {
+   }
+
+   &__github {
+   }
+}
