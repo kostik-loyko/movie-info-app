@@ -1,33 +1,45 @@
-const api_key = "&api_key=61d3a291811a4b6a63c44806ed77d53a";
-const urlStart = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc${api_key}`;
-const urlSearch = `https://api.themoviedb.org/3/search/movie?query=${api_key}`;
+const api_key = 'bdd283e1-19ba-4195-8fa6-f39fe3885da4';
+const urlStart = `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1`;
+const urlSearch = 'https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=';
 
 async function getData(url) {
-   const res = await fetch(url);
+   const res = await fetch(url, {
+      headers: {
+         'X-API-KEY': api_key,
+         'Content-Type': 'application/json',
+      },
+   });
    const data = await res.json();
-   showMovies(data);
    console.log(data);
+
+   showMovies(data);
+
 }
 getData(urlStart);
+
+
 
 // вывод карточек фильмов
 
 function showMovies(data) {
    const moviesContainer = document.querySelector('.cards');
    moviesContainer.innerHTML = '';
-   data.results.forEach((movie) => {
+   data.films.forEach((movie) => {
       const card = `<li class="cards__item">
-                        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="poster movie" class="cards__image">
-                        <p class="cards__title">${movie.original_title}</p>
+                        <img src="${movie.posterUrlPreview}" alt="poster movie" class="cards__image">
+                        <h2 class="cards__title">${movie.nameRu}</h2>
                         <div class="cards__block">
-                           <button type="button" class="cards__discription-button">discription</button>
-                           <a href="" class="cards__link">Kinopoisk</a>
-                           <p class="cards__mark cards__mark--${voteColor(movie.vote_average)}">${movie.vote_average}</p>
+                           <button type="button" class="cards__discription-button">Details</button>
+                           <a href="https://www.kinopoisk.ru/film/${movie.filmId}" class="cards__link">Kinopoisk</a>
+                           <p class="cards__mark cards__mark--${voteColor(movie.rating)}">${movie.rating}</p>
                         </div>
-                        <p class="cards__discription">${movie.overview}</p>
+                        <p class="cards__discription">Жанр:${movie.genres.map((genre) => ` ${genre.genre}`)}.<br> Длительность фильма: ${movie.filmLength}.<br> Год выхода: ${movie.year}.</p>
                      </li>`
       moviesContainer.insertAdjacentHTML('beforeend', card)
    });
+
+
+
 
    // показ описания к фильму
 
@@ -37,32 +49,76 @@ function showMovies(data) {
    discriptionBtn.forEach((btn, index) => {
       btn.addEventListener('click', () => {
          discription[index].classList.toggle('active');
+         btn.classList.toggle('active');
+         if (btn.textContent == 'Details') {
+            btn.textContent = 'close'
+         } else {
+            btn.textContent = 'Details'
+         }
       })
    })
 }
 
-// поиск фильмов через инпут
+// поиск фильмов через инпут, работа кнопок поиска
 
 const form = document.querySelector('.form');
 const search = document.querySelector('.form__input');
-
-const apiSearchUrl = `https://api.themoviedb.org/3/search/movie?query=${search.value}${api_key}`;
-console.log(apiSearchUrl);
+const apiSearchUrl = `${urlSearch}${search.value}`;
+const resetBtn = document.querySelector('.form__btn-reset');
+const submitBtn = document.querySelector('.form__btn-submit');
 
 form.addEventListener('submit', (evt) => {
    evt.preventDefault();
-   const apiSearchUrl = `https://api.themoviedb.org/3/search/movie?query=${search.value}${api_key}`;
+   const apiSearchUrl = urlSearch + search.value;
    if (search.value) {
       getData(apiSearchUrl);
+      document.querySelector('.form__btn-reset').classList.remove('visually-hidden');
    }
 })
 
+search.addEventListener('input', () => {
+   resetBtn.classList.remove('visually-hidden');
+})
+
+resetBtn.addEventListener('click', () => {
+   resetBtn.classList.add('visually-hidden');
+   search.focus();
+})
+
+submitBtn.addEventListener('click', () => {
+   search.focus();
+})
+
+// пагинация
+
+const pageBtn = document.querySelector('.header__btn-page');
+
+function pageCounter() {
+   let counter = 1;
+   pageBtn.addEventListener('click', () => {
+      counter++;
+      if (counter <= 10 && search.value) {
+         getData(`${urlSearch}${search.value}&page=${counter}`);
+         console.log(`${urlSearch}${search.value}&page=${counter}`);
+      } else if (counter <= 10) {
+         const urlPage = `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=${counter}`;
+         console.log(urlPage);
+         getData(urlPage);
+      } else {
+         getData(urlStart);
+         counter = 1;
+      }
+
+   })
+}
+pageCounter()
+
 // покраска рейтинга
 
-function voteColor(vote) {
-   if (vote >= 7) {
+function voteColor(rating) {
+   if (rating >= 7) {
       return "green"
-   } else if (vote >= 6) {
+   } else if (rating >= 6) {
       return "orange"
    } else {
       return "red"
