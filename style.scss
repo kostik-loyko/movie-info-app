@@ -72,6 +72,7 @@ button {
    width: 100%;
    z-index: 2;
    &__container {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -83,15 +84,6 @@ button {
    }
    &__title {
       font-size: 1.7em;
-   }
-   &__btn-page {
-      font-size: inherit;
-      height: 39px;
-      width: 71px;
-      color:#fff;
-      background-color: #837979;
-      border: none;
-      border-radius: 5px;
    }
 }
 
@@ -248,8 +240,26 @@ button {
 }
 
 .footer {
-
+   position: relative;
+   padding-top: 36px;
+   &__btn-page {
+      position: absolute;
+      font-size: inherit;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 39px;
+      width: 71px;
+      color:#fff;
+      background-color: #837979;
+      border: none;
+      border-radius: 5px;
+      margin: 0 auto;
+      @media (max-width: 768px) {
+      }
+   }
    &__container {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;

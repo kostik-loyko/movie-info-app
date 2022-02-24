@@ -78,6 +78,7 @@ button {
 }
 
 .header__container {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -102,16 +103,6 @@ button {
 
 .header__title {
   font-size: 1.7em;
-}
-
-.header__btn-page {
-  font-size: inherit;
-  height: 39px;
-  width: 71px;
-  color: #fff;
-  background-color: #837979;
-  border: none;
-  border-radius: 5px;
 }
 
 .form {
@@ -301,7 +292,29 @@ button {
   border: 3px solid red;
 }
 
+.footer {
+  position: relative;
+  padding-top: 36px;
+}
+
+.footer__btn-page {
+  position: absolute;
+  font-size: inherit;
+  top: 10px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  height: 39px;
+  width: 71px;
+  color: #fff;
+  background-color: #837979;
+  border: none;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
 .footer__container {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
