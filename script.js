@@ -91,7 +91,7 @@ submitBtn.addEventListener('click', () => {
 
 // пагинация
 
-const pageBtn = document.querySelector('.header__btn-page');
+const pageBtn = document.querySelector('.footer__btn-page');
 
 function pageCounter() {
    let counter = 1;
